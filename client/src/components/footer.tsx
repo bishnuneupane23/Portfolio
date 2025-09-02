@@ -18,6 +18,12 @@ export function Footer() {
               </Button>
             </Link>
             <span className="text-muted-foreground">|</span>
+            <Link href="/admin/login">
+              <Button variant="ghost" size="sm" className="text-sm h-auto p-0" data-testid="link-admin">
+                Admin
+              </Button>
+            </Link>
+            <span className="text-muted-foreground">|</span>
             <Button variant="ghost" size="sm" asChild className="h-auto p-0" data-testid="link-linkedin-footer">
               <a href="https://linkedin.com/in/bishnu-neupane-9a5a7426b/" target="_blank" rel="noopener noreferrer">
                 LinkedIn

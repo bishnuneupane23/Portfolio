@@ -9,6 +9,8 @@ import AOKCaseStudy from "@/pages/projects/a-ok";
 import ConnectPersonaCaseStudy from "@/pages/projects/connect-persona";
 import LahvPlusParkingCaseStudy from "@/pages/projects/lahv-plus-parking";
 import Privacy from "@/pages/privacy";
+import AdminLogin from "@/pages/admin/login";
+import AdminDashboard from "@/pages/admin/dashboard";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 
@@ -20,6 +22,8 @@ function Router() {
       <Route path="/projects/connect-persona" component={ConnectPersonaCaseStudy} />
       <Route path="/projects/lahv-plus-parking" component={LahvPlusParkingCaseStudy} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin" component={AdminDashboard} />
       <Route component={NotFound} />
     </Switch>
   );

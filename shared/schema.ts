@@ -1,18 +1,114 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { 
+  pgTable, 
+  text, 
+  varchar, 
+  timestamp, 
+  boolean, 
+  integer,
+  json 
+} from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const users = pgTable("users", {
+// Admin authentication
+export const adminUsers = pgTable("admin_users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const insertUserSchema = createInsertSchema(users).pick({
+// Profile information (admin-editable)
+export const profile = pgTable("profile", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  title: text("title").notNull(),
+  location: text("location").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  linkedin: text("linkedin"),
+  experienceYears: integer("experience_years").notNull(),
+  availability: text("availability").notNull(),
+  responsePromise: text("response_promise"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Skills (admin-editable)
+export const skills = pgTable("skills", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  level: text("level").notNull(), // Advanced, Intermediate, Beginner
+  percentage: integer("percentage").notNull(),
+  category: text("category"),
+  displayOrder: integer("display_order").default(0),
+  isActive: boolean("is_active").default(true),
+});
+
+// Projects (admin-editable)
+export const projects = pgTable("projects", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  problem: text("problem").notNull(),
+  organization: text("organization").notNull(),
+  timeframe: text("timeframe").notNull(),
+  platforms: json("platforms").$type<string[]>().notNull(),
+  status: text("status").notNull(), // completed, coming-soon, available
+  goals: json("goals").$type<string[]>(),
+  testStrategy: json("test_strategy").$type<string[]>(),
+  performanceTargets: json("performance_targets").$type<any>(),
+  isPublished: boolean("is_published").default(true),
+  displayOrder: integer("display_order").default(0),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// About section content (admin-editable)
+export const aboutContent = pgTable("about_content", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  content: text("content").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+// Insert schemas
+export const insertAdminUserSchema = createInsertSchema(adminUsers).pick({
   username: true,
   password: true,
 });
 
-export type InsertUser = z.infer<typeof insertUserSchema>;
-export type User = typeof users.$inferSelect;
+export const insertProfileSchema = createInsertSchema(profile).omit({
+  id: true,
+  updatedAt: true,
+});
+
+export const insertSkillSchema = createInsertSchema(skills).omit({
+  id: true,
+});
+
+export const insertProjectSchema = createInsertSchema(projects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAboutContentSchema = createInsertSchema(aboutContent).omit({
+  id: true,
+  updatedAt: true,
+});
+
+// Types
+export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
+export type AdminUser = typeof adminUsers.$inferSelect;
+
+export type InsertProfile = z.infer<typeof insertProfileSchema>;
+export type Profile = typeof profile.$inferSelect;
+
+export type InsertSkill = z.infer<typeof insertSkillSchema>;
+export type Skill = typeof skills.$inferSelect;
+
+export type InsertProject = z.infer<typeof insertProjectSchema>;
+export type Project = typeof projects.$inferSelect;
+
+export type InsertAboutContent = z.infer<typeof insertAboutContentSchema>;
+export type AboutContent = typeof aboutContent.$inferSelect;
