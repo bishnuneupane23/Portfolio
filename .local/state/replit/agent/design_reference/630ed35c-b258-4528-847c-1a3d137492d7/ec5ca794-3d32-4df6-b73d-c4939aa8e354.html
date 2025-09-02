@@ -1,0 +1,941 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishnu Neupane - Quality Assurance Lead</title>
+    <meta name="description" content="Quality Assurance Lead delivering dependable web, mobile, and API releases. Evidence, test plans, bug reports, and performance results.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    popover: {
+                        DEFAULT: "var(--popover)",
+                        foreground: "var(--popover-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                },
+                fontFamily: {
+                    sans: ["Inter", "system-ui", "sans-serif"],
+                },
+                animation: {
+                    'fade-in': 'fadeIn 0.5s ease-in-out',
+                    'slide-up': 'slideUp 0.5s ease-out',
+                },
+                keyframes: {
+                    fadeIn: {
+                        '0%': { opacity: '0' },
+                        '100%': { opacity: '1' },
+                    },
+                    slideUp: {
+                        '0%': { opacity: '0', transform: 'translateY(20px)' },
+                        '100%': { opacity: '1', transform: 'translateY(0)' },
+                    },
+                }
+            },
+        },
+    };
+    </script>
+    
+    <style>
+        :root {
+            --background: hsl(0 0% 0%);
+            --foreground: hsl(0 0% 100%);
+            --card: hsl(0 0% 5%);
+            --card-foreground: hsl(0 0% 100%);
+            --popover: hsl(0 0% 5%);
+            --popover-foreground: hsl(0 0% 100%);
+            --primary: hsl(210 100% 56%);
+            --primary-foreground: hsl(0 0% 100%);
+            --secondary: hsl(0 0% 10%);
+            --secondary-foreground: hsl(0 0% 100%);
+            --muted: hsl(0 0% 10%);
+            --muted-foreground: hsl(0 0% 70%);
+            --accent: hsl(210 100% 56%);
+            --accent-foreground: hsl(0 0% 100%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 100%);
+            --border: hsl(0 0% 20%);
+            --input: hsl(0 0% 20%);
+            --ring: hsl(210 100% 56%);
+            --radius: 0.5rem;
+        }
+        
+        .light {
+            --background: hsl(0 0% 100%);
+            --foreground: hsl(0 0% 5%);
+            --card: hsl(0 0% 100%);
+            --card-foreground: hsl(0 0% 5%);
+            --popover: hsl(0 0% 100%);
+            --popover-foreground: hsl(0 0% 5%);
+            --primary: hsl(210 100% 56%);
+            --primary-foreground: hsl(0 0% 100%);
+            --secondary: hsl(0 0% 96%);
+            --secondary-foreground: hsl(0 0% 5%);
+            --muted: hsl(0 0% 96%);
+            --muted-foreground: hsl(0 0% 40%);
+            --accent: hsl(210 100% 56%);
+            --accent-foreground: hsl(0 0% 100%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(0 0% 100%);
+            --border: hsl(0 0% 90%);
+            --input: hsl(0 0% 90%);
+            --ring: hsl(210 100% 56%);
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%);
+        }
+    </style>
+</head>
+
+<body class="dark bg-background text-foreground antialiased">
+    <!-- @COMPONENT: Header [sticky navigation with theme toggle] -->
+    <header class="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <!-- Logo/Name -->
+                <div class="flex items-center">
+                    <a href="/" class="text-xl font-bold text-foreground hover:text-primary transition-colors">
+                        Bishnu Neupane
+                    </a>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Home</a>
+                    <a href="#about" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</a>
+                    <a href="#skills" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Skills</a>
+                    <a href="#projects" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Projects</a>
+                    <a href="#resume" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Résumé</a>
+                    <a href="#contact" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Contact</a>
+                </nav>
+                
+                <!-- Theme Toggle & CTA -->
+                <div class="flex items-center space-x-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
+                        <i class="fas fa-moon w-4 h-4"></i>
+                    </button>
+                    
+                    <!-- Desktop Book Interview Button -->
+                    <a href="https://calendly.com/bishnu23neupane" target="_blank" class="hidden md:inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                        Book Interview
+                    </a>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">
+                        <i class="fas fa-bars w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-background">
+            <div class="px-4 py-2 space-y-1">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">Projects</a>
+                <a href="#resume" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">Résumé</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors">Contact</a>
+                <div class="pt-2">
+                    <a href="https://calendly.com/bishnu23neupane" target="_blank" class="block w-full text-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                        Book Interview
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <main class="relative">
+        <!-- @COMPONENT: Hero Section [main landing area] -->
+        <section id="home" class="hero-gradient py-20 sm:py-32 lg:py-40">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto text-center animate-fade-in">
+                    <!-- Main Heading -->
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground mb-6">
+                        QA Lead <span class="text-primary">@ankaEK</span> | Manual & Automation Testing Enthusiast | Detail-Oriented | Problem Solver
+                    </h1>
+                    
+                    <!-- Subheadline -->
+                    <p class="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
+                        QA Lead ensuring reliable releases with rigorous manual testing and practical automation—focused on quality, speed, and UX.
+                    </p>
+                    
+                    <!-- Quick Facts -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-8">
+                        <span class="inline-flex items-center rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
+                            <i class="fas fa-clock mr-2"></i>1 year experience
+                        </span>
+                        <span class="inline-flex items-center rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
+                            <i class="fas fa-laptop mr-2"></i>Hybrid
+                        </span>
+                        <span class="inline-flex items-center rounded-full bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
+                            <i class="fas fa-briefcase mr-2"></i>Currently working
+                        </span>
+                    </div>
+                    
+                    <!-- Tool Chips -->
+                    <div class="flex flex-wrap justify-center gap-2 mb-10">
+                        <span class="inline-flex items-center rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary">Taiga</span>
+                        <span class="inline-flex items-center rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary">Postman</span>
+                        <span class="inline-flex items-center rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary">APIDOG</span>
+                        <span class="inline-flex items-center rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary">JIRA</span>
+                        <span class="inline-flex items-center rounded-md border border-primary px-3 py-1 text-sm font-medium text-primary">JMeter</span>
+                    </div>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://calendly.com/bishnu23neupane" target="_blank" class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                            <i class="fas fa-calendar mr-2"></i>Book Interview
+                        </a>
+                        <a href="#resume" class="inline-flex items-center justify-center rounded-md border border-border bg-background px-6 py-3 text-base font-medium text-foreground hover:bg-secondary transition-colors">
+                            <i class="fas fa-download mr-2"></i>Download Résumé
+                        </a>
+                        <a href="mailto:bishnu23neupane@gmail.com" class="inline-flex items-center justify-center rounded-md border border-border bg-background px-6 py-3 text-base font-medium text-foreground hover:bg-secondary transition-colors">
+                            <i class="fas fa-envelope mr-2"></i>Email Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Hero Section -->
+
+        <!-- @COMPONENT: About Section [professional summary] -->
+        <section id="about" class="py-20 bg-card">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-foreground mb-4">About Me</h2>
+                        <div class="w-20 h-1 bg-primary mx-auto"></div>
+                    </div>
+                    
+                    <div class="prose prose-lg max-w-none text-muted-foreground">
+                        <p class="text-lg leading-relaxed mb-6">
+                            I'm deeply passionate about building reliable, high-quality software. With hands-on experience in manual testing and a growing skill set in automation, I thrive on uncovering bugs, crafting efficient test cases, and ensuring smooth user experiences.
+                        </p>
+                        
+                        <p class="text-lg leading-relaxed mb-6">
+                            My journey began at Broadway Infosys, where I trained rigorously in QA practices, contributed to real-world projects, and collaborated with cross-functional teams to deliver results. I'm skilled in bug tracking with tools like JIRA, and have led QA efforts during agile sprints—driving quality with strong communication and leadership.
+                        </p>
+                        
+                        <p class="text-lg leading-relaxed">
+                            Currently, I lead the QA function at ankaEK, where I continue to advocate for excellence in every release. Let's connect if you're passionate about quality, product improvement, or tech-driven teamwork!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: About Section -->
+
+        <!-- @COMPONENT: Skills Section [proficiency matrix] -->
+        <section id="skills" class="py-20 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-foreground mb-4">Skills & Proficiency</h2>
+                        <div class="w-20 h-1 bg-primary mx-auto"></div>
+                    </div>
+                    
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        <!-- @MAP: skills.map(skill => ( -->
+                        <div class="bg-card rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-foreground">Taiga</h3>
+                                <span class="px-2 py-1 bg-primary/20 text-primary text-xs font-medium rounded">Advanced</span>
+                            </div>
+                            <div class="w-full bg-muted rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-card rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-foreground">Postman</h3>
+                                <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-medium rounded">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-muted rounded-full h-2">
+                                <div class="bg-accent h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-card rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-foreground">APIDOG</h3>
+                                <span class="px-2 py-1 bg-accent/20 text-accent text-xs font-medium rounded">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-muted rounded-full h-2">
+                                <div class="bg-accent h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-card rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-foreground">JIRA</h3>
+                                <span class="px-2 py-1 bg-muted/20 text-muted-foreground text-xs font-medium rounded">Beginner</span>
+                            </div>
+                            <div class="w-full bg-muted rounded-full h-2">
+                                <div class="bg-muted-foreground h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-card rounded-lg p-6 border border-border hover:border-primary/50 transition-colors">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-foreground">JMeter</h3>
+                                <span class="px-2 py-1 bg-muted/20 text-muted-foreground text-xs font-medium rounded">Beginner</span>
+                            </div>
+                            <div class="w-full bg-muted rounded-full h-2">
+                                <div class="bg-muted-foreground h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Skills Section -->
+
+        <!-- @COMPONENT: Projects Section [featured work grid] -->
+        <section id="projects" class="py-20 bg-card">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-foreground mb-4">Featured Projects</h2>
+                        <div class="w-20 h-1 bg-primary mx-auto mb-4"></div>
+                        <p class="text-lg text-muted-foreground">
+                            <span class="font-semibold">ankaEK</span> • Nov 2024 - Present • Web, Mobile, API (Manual & Automation)
+                        </p>
+                    </div>
+                    
+                    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        <!-- @MAP: projects.map(project => ( -->
+                        <div class="bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">a-OK</h3>
+                                    <i class="fas fa-external-link-alt text-muted-foreground group-hover:text-primary transition-colors"></i>
+                                </div>
+                                
+                                <p class="text-muted-foreground mb-4 text-sm">
+                                    Problem: unreliable redemption flow; API instability under load; regression escapes.
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Web</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Mobile</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">API</span>
+                                </div>
+                                
+                                <a href="#case-study-aok" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                                    View Case Study <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">Connect Persona</h3>
+                                    <i class="fas fa-external-link-alt text-muted-foreground group-hover:text-primary transition-colors"></i>
+                                </div>
+                                
+                                <p class="text-muted-foreground mb-4 text-sm">
+                                    Problem: 1-way & 2-way connection via link; Connection & Contact management.
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Web</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Mobile</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">API</span>
+                                </div>
+                                
+                                <a href="#case-study-connect" class="inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors">
+                                    View Case Study <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">Lahv+ Parking</h3>
+                                    <i class="fas fa-clock text-muted-foreground group-hover:text-primary transition-colors"></i>
+                                </div>
+                                
+                                <p class="text-muted-foreground mb-4 text-sm">
+                                    Case Study: Coming Soon
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-muted/20 text-muted-foreground text-xs rounded">In Progress</span>
+                                </div>
+                                
+                                <span class="inline-flex items-center text-sm font-medium text-muted-foreground">
+                                    Coming Soon
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">EMS</h3>
+                                    <i class="fas fa-external-link-alt text-muted-foreground group-hover:text-primary transition-colors"></i>
+                                </div>
+                                
+                                <p class="text-muted-foreground mb-4 text-sm">
+                                    Enterprise Management System with comprehensive QA coverage.
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Web</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">API</span>
+                                </div>
+                                
+                                <span class="inline-flex items-center text-sm font-medium text-muted-foreground">
+                                    Case Study Available
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-background rounded-lg border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg group">
+                            <div class="p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-xl font-semibold text-foreground group-hover:text-primary transition-colors">CareCore</h3>
+                                    <i class="fas fa-external-link-alt text-muted-foreground group-hover:text-primary transition-colors"></i>
+                                </div>
+                                
+                                <p class="text-muted-foreground mb-4 text-sm">
+                                    Healthcare management platform with rigorous testing protocols.
+                                </p>
+                                
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Web</span>
+                                    <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Mobile</span>
+                                </div>
+                                
+                                <span class="inline-flex items-center text-sm font-medium text-muted-foreground">
+                                    Case Study Available
+                                </span>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Projects Section -->
+
+        <!-- @COMPONENT: Case Study Modal - a-OK [detailed case study] -->
+        <div id="case-study-aok" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" data-modal="case-study">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-card rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between p-6 border-b border-border">
+                        <h2 class="text-2xl font-bold text-foreground">Case Study: a-OK</h2>
+                        <button onclick="closeModal('case-study-aok')" class="p-2 hover:bg-secondary rounded-md transition-colors">
+                            <i class="fas fa-times text-muted-foreground"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="p-6 space-y-8">
+                        <!-- Problem Section -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Problem</h3>
+                            <p class="text-muted-foreground">
+                                unreliable redemption flow; API instability under load; regression escapes.
+                            </p>
+                        </div>
+                        
+                        <!-- Goals & Success -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Goals & Success Metrics</h3>
+                            <ul class="space-y-2 text-muted-foreground">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Defect leakage ≤10% per release
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Redemption API p95 ≤ 600ms @ 10,000 CCU
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Automation pass ≥90% on critical redemption paths
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Bug reopen ≤10% per release
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Test Strategy -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Test Strategy</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Smoke</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Functional</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Regression</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">API Testing</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Performance</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Negative Testing</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Compatibility</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Back to Projects -->
+                        <div class="pt-4 border-t border-border">
+                            <button onclick="closeModal('case-study-aok')" class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+                                <i class="fas fa-arrow-left mr-2"></i>Back to Projects
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Case Study Modal - a-OK -->
+
+        <!-- @COMPONENT: Case Study Modal - Connect Persona [detailed case study] -->
+        <div id="case-study-connect" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden" data-modal="case-study">
+            <div class="flex items-center justify-center min-h-screen p-4">
+                <div class="bg-card rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                    <div class="flex items-center justify-between p-6 border-b border-border">
+                        <h2 class="text-2xl font-bold text-foreground">Case Study: Connect Persona</h2>
+                        <button onclick="closeModal('case-study-connect')" class="p-2 hover:bg-secondary rounded-md transition-colors">
+                            <i class="fas fa-times text-muted-foreground"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="p-6 space-y-8">
+                        <!-- Problem Section -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Problem</h3>
+                            <p class="text-muted-foreground">
+                                1-way & 2-way connection via link; Connection & Contact management.
+                            </p>
+                        </div>
+                        
+                        <!-- Goals & Success -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Goals & Success Metrics</h3>
+                            <ul class="space-y-2 text-muted-foreground">
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Defect leakage ≤10% per release
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-check-circle text-primary mr-3"></i>
+                                    Bug reopen <10% per release
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Test Strategy -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-foreground mb-4">Test Strategy</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Smoke</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Functional</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Regression</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">API Testing</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Performance</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Negative Testing</span>
+                                <span class="px-3 py-2 bg-primary/10 text-primary text-sm rounded">Compatibility</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Back to Projects -->
+                        <div class="pt-4 border-t border-border">
+                            <button onclick="closeModal('case-study-connect')" class="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+                                <i class="fas fa-arrow-left mr-2"></i>Back to Projects
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: Case Study Modal - Connect Persona -->
+
+        <!-- @COMPONENT: Resume Section [ATS-friendly layout] -->
+        <section id="resume" class="py-20 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-foreground mb-4">Résumé</h2>
+                        <div class="w-20 h-1 bg-primary mx-auto mb-6"></div>
+                        <a href="#" class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                            <i class="fas fa-download mr-2"></i>Download Résumé (PDF)
+                        </a>
+                    </div>
+                    
+                    <!-- Resume Content -->
+                    <div class="bg-card rounded-lg border border-border p-8">
+                        <!-- Header -->
+                        <div class="text-center mb-8">
+                            <h3 class="text-2xl font-bold text-foreground mb-2">Bishnu Prasad Neupane</h3>
+                            <p class="text-lg text-primary font-semibold mb-4">Quality Assurance Lead</p>
+                            <div class="flex flex-wrap justify-center gap-4 text-sm text-muted-foreground">
+                                <span><i class="fas fa-map-marker-alt mr-1"></i>Kathmandu, Nepal</span>
+                                <span><i class="fas fa-envelope mr-1"></i>bishnu23neupane@gmail.com</span>
+                                <span><i class="fas fa-phone mr-1"></i>+977 980-354-5245</span>
+                                <span><i class="fab fa-linkedin mr-1"></i>LinkedIn</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Experience -->
+                        <div class="mb-8">
+                            <h4 class="text-xl font-semibold text-foreground mb-4">Experience</h4>
+                            <div class="border-l-2 border-primary pl-6">
+                                <div class="mb-6">
+                                    <div class="flex flex-wrap justify-between items-start mb-2">
+                                        <h5 class="text-lg font-semibold text-foreground">QA Lead</h5>
+                                        <span class="text-sm text-muted-foreground">11/2024 - Present</span>
+                                    </div>
+                                    <p class="text-primary font-medium mb-3">ankaEK</p>
+                                    <p class="text-sm text-muted-foreground mb-3">Progression: QA Intern → Jr QA → QA Lead (current)</p>
+                                    <ul class="space-y-2 text-muted-foreground text-sm">
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-primary mt-1 mr-2 flex-shrink-0"></i>
+                                            Led QA strategy across 3 products with focus on manual and automation testing
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-primary mt-1 mr-2 flex-shrink-0"></i>
+                                            Implemented API and performance testing protocols for 10k CCU load scenarios
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-primary mt-1 mr-2 flex-shrink-0"></i>
+                                            Reduced regression risk through comprehensive test case development and execution
+                                        </li>
+                                        <li class="flex items-start">
+                                            <i class="fas fa-check-circle text-primary mt-1 mr-2 flex-shrink-0"></i>
+                                            Enhanced RCA quality and mentored junior QA team members
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Skills -->
+                        <div class="mb-8">
+                            <h4 class="text-xl font-semibold text-foreground mb-4">Technical Skills</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-medium text-foreground mb-2">Testing Tools</h5>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Taiga (Advanced)</span>
+                                        <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">Postman (Intermediate)</span>
+                                        <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">APIDOG (Intermediate)</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-foreground mb-2">Project Management</h5>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">JIRA (Beginner)</span>
+                                        <span class="px-2 py-1 bg-primary/10 text-primary text-xs rounded">JMeter (Beginner)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Resume Section -->
+
+        <!-- @COMPONENT: Contact Section [multiple contact methods] -->
+        <section id="contact" class="py-20 bg-card">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-foreground mb-4">Let's Connect</h2>
+                        <div class="w-20 h-1 bg-primary mx-auto mb-4"></div>
+                        <p class="text-lg text-muted-foreground">
+                            <span class="font-semibold">Hybrid | Currently working</span>
+                        </p>
+                        <p class="text-primary font-medium mt-2">I reply within 24 hours.</p>
+                    </div>
+                    
+                    <div class="grid gap-8 md:grid-cols-3">
+                        <!-- Calendly -->
+                        <div class="bg-background rounded-lg border border-border p-6 text-center hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-calendar-alt text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-foreground mb-2">Schedule Interview</h3>
+                            <p class="text-muted-foreground text-sm mb-4">Book a time that works for both of us</p>
+                            <a href="https://calendly.com/bishnu23neupane" target="_blank" class="inline-flex items-center justify-center w-full rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
+                                Book on Calendly
+                            </a>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="bg-background rounded-lg border border-border p-6 text-center hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-envelope text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-foreground mb-2">Email Me</h3>
+                            <p class="text-muted-foreground text-sm mb-4">Send me a message directly</p>
+                            <a href="mailto:bishnu23neupane@gmail.com" class="inline-flex items-center justify-center w-full rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary transition-colors">
+                                Send Email
+                            </a>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="bg-background rounded-lg border border-border p-6 text-center hover:border-primary/50 transition-colors">
+                            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-phone text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-foreground mb-2">Call Me</h3>
+                            <p class="text-muted-foreground text-sm mb-4">Direct phone contact</p>
+                            <a href="tel:+9779803545245" class="inline-flex items-center justify-center w-full rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground hover:bg-secondary transition-colors">
+                                +977 980-354-5245
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Contact Section -->
+    </main>
+
+    <!-- @COMPONENT: Footer [simple footer with privacy link] -->
+    <footer class="border-t border-border bg-background py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="text-center md:text-left mb-4 md:mb-0">
+                    <p class="text-muted-foreground text-sm">
+                        © 2025 Bishnu Prasad Neupane. All rights reserved.
+                    </p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#privacy" onclick="showPrivacy()" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                        Privacy Policy
+                    </a>
+                    <span class="text-muted-foreground">|</span>
+                    <a href="https://linkedin.com/in/bishnu-neupane-9a5a7426b/" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- @COMPONENT: Privacy Modal [privacy policy] -->
+    <div id="privacy-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-card rounded-lg shadow-xl max-w-2xl w-full">
+                <div class="flex items-center justify-between p-6 border-b border-border">
+                    <h2 class="text-2xl font-bold text-foreground">Privacy Policy</h2>
+                    <button onclick="closePrivacy()" class="p-2 hover:bg-secondary rounded-md transition-colors">
+                        <i class="fas fa-times text-muted-foreground"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <div class="space-y-4 text-muted-foreground">
+                        <p>
+                            This portfolio website does not collect, store, or process any personal data through forms or analytics.
+                        </p>
+                        <p>
+                            <strong>Contact:</strong> All communication happens through external services (Calendly, Email, Phone) which have their own privacy policies.
+                        </p>
+                        <p>
+                            <strong>No Tracking:</strong> This site does not use cookies, analytics, or any tracking technologies.
+                        </p>
+                        <p>
+                            <strong>External Links:</strong> Links to Calendly and other external services are governed by their respective privacy policies.
+                        </p>
+                        <p class="text-sm text-muted-foreground">
+                            Last updated: January 2025
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- @END_COMPONENT: Privacy Modal -->
+
+    <script>
+        // Theme Toggle Functionality
+        (function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved theme preference or default to 'dark'
+            const currentTheme = localStorage.getItem('theme') || 'dark';
+            
+            if (currentTheme === 'light') {
+                html.classList.add('light');
+                html.classList.remove('dark');
+                icon.className = 'fas fa-sun w-4 h-4';
+            } else {
+                html.classList.add('dark');
+                html.classList.remove('light');
+                icon.className = 'fas fa-moon w-4 h-4';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                    icon.className = 'fas fa-sun w-4 h-4';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.classList.remove('light');
+                    html.classList.add('dark');
+                    icon.className = 'fas fa-moon w-4 h-4';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        })();
+
+        // Mobile Menu Toggle
+        (function() {
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const icon = mobileMenuToggle.querySelector('i');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                if (mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.remove('hidden');
+                    icon.className = 'fas fa-times w-4 h-4';
+                } else {
+                    mobileMenu.classList.add('hidden');
+                    icon.className = 'fas fa-bars w-4 h-4';
+                }
+            });
+            
+            // Close mobile menu when clicking on links
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                    icon.className = 'fas fa-bars w-4 h-4';
+                });
+            });
+        })();
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Case Study Modal Event Listeners
+        document.querySelectorAll('a[href^="#case-study"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const modalId = this.getAttribute('href').substring(1);
+                openModal(modalId);
+            });
+        });
+
+        // Privacy Modal Functions
+        function showPrivacy() {
+            openModal('privacy-modal');
+        }
+
+        function closePrivacy() {
+            closeModal('privacy-modal');
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('[data-modal]') || e.target.matches('#privacy-modal')) {
+                e.target.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Escape key to close modals
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const openModals = document.querySelectorAll('[data-modal]:not(.hidden), #privacy-modal:not(.hidden)');
+                openModals.forEach(modal => {
+                    modal.classList.add('hidden');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
