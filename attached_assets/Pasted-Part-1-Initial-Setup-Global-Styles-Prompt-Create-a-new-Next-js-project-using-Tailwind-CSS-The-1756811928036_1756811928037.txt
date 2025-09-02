@@ -1,0 +1,29 @@
+Part 1: Initial Setup & Global Styles
+Prompt: "Create a new Next.js project using Tailwind CSS. The portfolio will be for a QA Lead named Bishnu Prasad Neupane. The entire site should have a 'dark mode by default' theme with a color palette of Black (#000000), White (#FFFFFF), and a primary accent color of blue (#007BFF) for buttons, links, and focus states. Use the 'Inter' font throughout the site. Make the layout fully responsive for mobile, tablet, and desktop. For the overall design and layout, take inspiration from the attached design-inspiration.pdf file, for everything else, use the other pdf file attached"
+Part 2: Header & Navigation
+Prompt: "Now, create a responsive header. On mobile, it should be sticky and prominently feature a 'Book Interview' button that links to https://calendly.com/bishnu23neupane. On desktop, the header should include navigation links for 'Home,' 'About,' 'Skills,' 'Projects,' 'Résumé,' and 'Contact.' Also, add a theme toggle switch to change between dark and light modes."
+Part 3: Home Page - Hero Section
+Prompt: "Let's build the hero section for the Home page.
+The H1 heading should be: 'QA Lead @ankaEK | Manual & Automation Testing Enthusiast | Detail-Oriented | Problem Solver'
+The subheadline below it should be: 'QA Lead ensuring reliable releases with rigorous manual testing and practical automation—focused on quality, speed, and UX.'
+Below that, add a 'Quick Facts' row containing: '1 year experience', 'Hybrid', 'Currently working', and chips for 'Taiga', 'Postman', 'APIDOG', 'JIRA', and 'JMeter'.
+Finally, add three call-to-action buttons: a primary 'Book Interview' button, and secondary buttons for 'Download Résumé' and 'Email Me' (mailto:bishnu23neupane@gmail.com)."
+Part 4: About & Skills Sections
+Prompt: "Create two new sections below the hero.
+An 'About' section containing this professional summary: 'I'm deeply passionate about building reliable, high-quality software. With hands-on experience in manual testing and a growing skill set in automation, I thrive on uncovering bugs, crafting efficient test cases, and ensuring smooth user experiences. My journey began at Broadway Infosys, where I trained rigorously in QA practices, contributed to real-world projects, and collaborated with cross-functional teams to deliver results. I'm skilled in bug tracking with tools like JIRA, and have led QA efforts during agile sprints—driving quality with strong communication and leadership. Currently, I lead the QA function at ankaEK, where I continue to advocate for excellence in every release. Let's connect if you're passionate about quality, product improvement, or tech-driven teamwork!'
+A 'Skills' section that displays a proficiency matrix for the following tools: Taiga (Advanced), Postman (Intermediate), APIDOG (Intermediate), JIRA (Beginner), JMeter (Beginner)."
+Part 5: Projects Section
+Prompt: "Now, add a 'Projects' section. This section should display a grid of project cards. Create cards for the following projects: 'a-OK', 'Connect Persona', 'Lahv+ Parking', 'EMS', and 'CareCore'. Each card should list the organization as 'ankaEK', the timeframe as 'Nov 2024 - Present', and the scope as 'Web, Mobile, API (Manual & Automation)'."
+Part 6: Case Study Pages
+Prompt: "Create a new page route /projects/a-ok for the 'a-OK' case study.
+The page should have a 'Problem' section with the text: 'unreliable redemption flow; API instability under load; regression escapes.'
+Add a 'Goals & Success' section listing: 'Defect leakage ≤10% per release', 'Redemption API p95 ≤ 600ms @ 10,000 CCU', 'Automation pass ≥90% on critical redemption paths', and 'Bug reopen ≤10% per release'.
+Now, do the same for a new page /projects/connect-persona. The problem statement is '1-way & 2-way connection via link; Connection & Contact management.' and the goals are 'Defect leakage ≤10% per release' and 'Bug reopen <10% per release'.
+Finally, create a page route /projects/lahv-plus-parking that simply says 'Case Study: Coming Soon' with a button to go back to the main projects page."
+Part 7: Résumé & Contact Sections
+Prompt: "Let's create the final two sections for the main page.
+A 'Résumé' section with a clean, ATS-friendly layout. It should include my name, title, contact info, experience at 'ankaEK' from '11/2024 - Present' showing my progression from 'QA Intern → Jr QA → QA Lead (current)', and bullet points summarizing my impact. Add a prominent 'Download Résumé (PDF)' button.
+A 'Contact' section. Include the Calendly link, the mailto link, and my phone number +977 980-354-5245. Add a status that says 'Hybrid | Currently working' and the promise 'I reply within 24 hours.'"
+Part 8: Footer & SEO
+Prompt: "Finally, create a simple footer with a link to a /privacy page. The privacy page should state that no forms or analytics are used. Also, update the site's metadata. The site title should be 'Bishnu Neupane - Quality Assurance Lead' and the meta description should be 'Quality Assurance Lead delivering dependable web, mobile, and API releases. Evidence, test plans, bug reports, and performance results.'"
+
