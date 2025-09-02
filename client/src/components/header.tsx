@@ -37,9 +37,9 @@ export function Header() {
           {/* Logo/Name */}
           <div className="flex items-center">
             <Link href="/">
-              <a className="text-xl font-bold text-foreground hover:text-primary transition-colors" data-testid="link-home">
+              <span className="text-xl font-bold text-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-home">
                 Bishnu Neupane
-              </a>
+              </span>
             </Link>
           </div>
 
