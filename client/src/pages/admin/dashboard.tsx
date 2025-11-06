@@ -15,7 +15,8 @@ import {
   Trash2,
   Briefcase,
   GraduationCap,
-  Sliders
+  Sliders,
+  Download
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -28,6 +29,7 @@ import { AboutForm } from "@/components/admin/about-form";
 import { ExperienceForm } from "@/components/admin/experience-form";
 import { EducationForm } from "@/components/admin/education-form";
 import { SettingsForm } from "@/components/admin/settings-form";
+import { ResumeForm } from "@/components/admin/resume-form";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -107,7 +109,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-2">
             <TabsTrigger value="profile" className="flex items-center space-x-2" data-testid="tab-profile">
               <User className="h-4 w-4" />
               <span>Profile</span>
@@ -135,6 +137,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="settings" className="flex items-center space-x-2" data-testid="tab-settings">
               <Sliders className="h-4 w-4" />
               <span>Settings</span>
+            </TabsTrigger>
+            <TabsTrigger value="resume" className="flex items-center space-x-2" data-testid="tab-resume">
+              <Download className="h-4 w-4" />
+              <span>Resume</span>
             </TabsTrigger>
           </TabsList>
 
@@ -226,6 +232,18 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <SettingsForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Resume Attachments Management */}
+          <TabsContent value="resume" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Resume Attachments</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResumeForm />
               </CardContent>
             </Card>
           </TabsContent>
