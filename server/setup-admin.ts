@@ -14,7 +14,6 @@ async function createDefaultAdmin() {
     const hashedPassword = await bcrypt.hash('admin123', 10);
     await storage.createAdminUser({
       username: 'admin',
-      email: 'admin@example.com',
       password: hashedPassword
     });
 
