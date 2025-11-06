@@ -8,6 +8,9 @@ import {
   insertSkillSchema,
   insertProjectSchema,
   insertAboutContentSchema,
+  insertExperienceSchema,
+  insertEducationSchema,
+  insertSiteSettingsSchema,
 } from "@shared/schema";
 
 // Simple session middleware for admin auth
@@ -228,6 +231,189 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Update about content error:", error);
       res.status(400).json({ message: "Invalid about content" });
+    }
+  });
+
+  // Experience Management
+  app.get("/api/admin/experience", requireAdmin, async (req, res) => {
+    try {
+      const experiences = await storage.getExperiences();
+      res.json(experiences);
+    } catch (error) {
+      console.error("Get experience error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/admin/experience", requireAdmin, async (req, res) => {
+    try {
+      const validated = insertExperienceSchema.parse(req.body);
+      const experience = await storage.createExperience(validated);
+      res.json(experience);
+    } catch (error) {
+      console.error("Create experience error:", error);
+      res.status(400).json({ message: "Invalid experience data" });
+    }
+  });
+
+  app.put("/api/admin/experience/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validated = insertExperienceSchema.partial().parse(req.body);
+      const experience = await storage.updateExperience(id, validated);
+      res.json(experience);
+    } catch (error) {
+      console.error("Update experience error:", error);
+      res.status(400).json({ message: "Invalid experience data" });
+    }
+  });
+
+  app.delete("/api/admin/experience/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteExperience(id);
+      res.json({ message: "Experience deleted" });
+    } catch (error) {
+      console.error("Delete experience error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Education Management
+  app.get("/api/admin/education", requireAdmin, async (req, res) => {
+    try {
+      const education = await storage.getEducation();
+      res.json(education);
+    } catch (error) {
+      console.error("Get education error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/admin/education", requireAdmin, async (req, res) => {
+    try {
+      const validated = insertEducationSchema.parse(req.body);
+      const education = await storage.createEducation(validated);
+      res.json(education);
+    } catch (error) {
+      console.error("Create education error:", error);
+      res.status(400).json({ message: "Invalid education data" });
+    }
+  });
+
+  app.put("/api/admin/education/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validated = insertEducationSchema.partial().parse(req.body);
+      const education = await storage.updateEducation(id, validated);
+      res.json(education);
+    } catch (error) {
+      console.error("Update education error:", error);
+      res.status(400).json({ message: "Invalid education data" });
+    }
+  });
+
+  app.delete("/api/admin/education/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteEducation(id);
+      res.json({ message: "Education deleted" });
+    } catch (error) {
+      console.error("Delete education error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Site Settings Management
+  app.get("/api/admin/settings", requireAdmin, async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings();
+      res.json(settings);
+    } catch (error) {
+      console.error("Get settings error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/admin/settings", requireAdmin, async (req, res) => {
+    try {
+      const validated = insertSiteSettingsSchema.parse(req.body);
+      const settings = await storage.upsertSiteSettings(validated);
+      res.json(settings);
+    } catch (error) {
+      console.error("Update settings error:", error);
+      res.status(400).json({ message: "Invalid settings data" });
+    }
+  });
+
+  // Public API routes (no auth required)
+  app.get("/api/public/profile", async (req, res) => {
+    try {
+      const profile = await storage.getProfile();
+      res.json(profile);
+    } catch (error) {
+      console.error("Get profile error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/skills", async (req, res) => {
+    try {
+      const skills = await storage.getSkills();
+      res.json(skills);
+    } catch (error) {
+      console.error("Get skills error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/projects", async (req, res) => {
+    try {
+      const projects = await storage.getProjects();
+      res.json(projects);
+    } catch (error) {
+      console.error("Get projects error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/about", async (req, res) => {
+    try {
+      const about = await storage.getAboutContent();
+      res.json(about);
+    } catch (error) {
+      console.error("Get about content error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/experience", async (req, res) => {
+    try {
+      const experiences = await storage.getExperiences();
+      res.json(experiences);
+    } catch (error) {
+      console.error("Get experience error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/education", async (req, res) => {
+    try {
+      const education = await storage.getEducation();
+      res.json(education);
+    } catch (error) {
+      console.error("Get education error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/settings", async (req, res) => {
+    try {
+      const settings = await storage.getSiteSettings();
+      res.json(settings);
+    } catch (error) {
+      console.error("Get settings error:", error);
+      res.status(500).json({ message: "Internal server error" });
     }
   });
 

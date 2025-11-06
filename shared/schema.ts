@@ -71,6 +71,47 @@ export const aboutContent = pgTable("about_content", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Work Experience (admin-editable)
+export const experience = pgTable("experience", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  jobTitle: text("job_title").notNull(),
+  company: text("company").notNull(),
+  startDate: text("start_date").notNull(),
+  endDate: text("end_date"),
+  isCurrent: boolean("is_current").default(false),
+  description: text("description"),
+  achievements: json("achievements").$type<string[]>(),
+  displayOrder: integer("display_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Education (admin-editable)
+export const education = pgTable("education", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  degree: text("degree").notNull(),
+  institution: text("institution").notNull(),
+  startDate: text("start_date").notNull(),
+  endDate: text("end_date"),
+  isCurrent: boolean("is_current").default(false),
+  description: text("description"),
+  displayOrder: integer("display_order").default(0),
+  isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Site Settings (admin-editable singleton)
+export const siteSettings = pgTable("site_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  heroTitle: text("hero_title").notNull(),
+  heroSubtitle: text("hero_subtitle").notNull(),
+  calendlyUrl: text("calendly_url"),
+  resumeUrl: text("resume_url"),
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  updatedAt: timestamp("updated_at").defaultNow(),
+});
+
 // Insert schemas
 export const insertAdminUserSchema = createInsertSchema(adminUsers).pick({
   username: true,
@@ -97,6 +138,21 @@ export const insertAboutContentSchema = createInsertSchema(aboutContent).omit({
   updatedAt: true,
 });
 
+export const insertExperienceSchema = createInsertSchema(experience).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEducationSchema = createInsertSchema(education).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSiteSettingsSchema = createInsertSchema(siteSettings).omit({
+  id: true,
+  updatedAt: true,
+});
+
 // Types
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type AdminUser = typeof adminUsers.$inferSelect;
@@ -112,3 +168,12 @@ export type Project = typeof projects.$inferSelect;
 
 export type InsertAboutContent = z.infer<typeof insertAboutContentSchema>;
 export type AboutContent = typeof aboutContent.$inferSelect;
+
+export type InsertExperience = z.infer<typeof insertExperienceSchema>;
+export type Experience = typeof experience.$inferSelect;
+
+export type InsertEducation = z.infer<typeof insertEducationSchema>;
+export type Education = typeof education.$inferSelect;
+
+export type InsertSiteSettings = z.infer<typeof insertSiteSettingsSchema>;
+export type SiteSettings = typeof siteSettings.$inferSelect;

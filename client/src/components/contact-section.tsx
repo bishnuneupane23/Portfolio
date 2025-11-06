@@ -1,15 +1,38 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Mail, Phone } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import type { SiteSettings, Profile } from "@shared/schema";
 
 export function ContactSection() {
+  const { data: settings } = useQuery<SiteSettings>({
+    queryKey: ["/api/public/settings"],
+  });
+
+  const { data: profile } = useQuery<Profile>({
+    queryKey: ["/api/public/profile"],
+  });
+
+  if (!profile) {
+    return (
+      <section id="contact" className="py-20 bg-card">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto animate-pulse">
+            <div className="h-12 bg-muted rounded mb-4"></div>
+            <div className="h-8 bg-muted rounded mb-8"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   const contactMethods = [
-    {
+    settings?.calendlyUrl && {
       icon: Calendar,
       title: "Schedule Interview",
       description: "Book a time that works for both of us",
       action: "Book on Calendly",
-      href: "https://calendly.com/bishnu23neupane",
+      href: settings.calendlyUrl,
       external: true,
       variant: "default" as const
     },
@@ -18,7 +41,7 @@ export function ContactSection() {
       title: "Email Me",
       description: "Send me a message directly",
       action: "Send Email",
-      href: "mailto:bishnu23neupane@gmail.com",
+      href: `mailto:${profile.email}`,
       external: false,
       variant: "outline" as const
     },
@@ -26,12 +49,20 @@ export function ContactSection() {
       icon: Phone,
       title: "Call Me",
       description: "Direct phone contact",
-      action: "+977 980-354-5245",
-      href: "tel:+9779803545245",
+      action: profile.phone,
+      href: `tel:${profile.phone.replace(/[^0-9+]/g, '')}`,
       external: false,
       variant: "outline" as const
     }
-  ];
+  ].filter(Boolean) as Array<{
+    icon: any;
+    title: string;
+    description: string;
+    action: string;
+    href: string;
+    external: boolean;
+    variant: "default" | "outline";
+  }>;
 
   return (
     <section id="contact" className="py-20 bg-card">
@@ -43,11 +74,13 @@ export function ContactSection() {
             </h2>
             <div className="w-20 h-1 bg-primary mx-auto mb-4"></div>
             <p className="text-lg text-muted-foreground" data-testid="text-contact-status">
-              <span className="font-semibold">Hybrid | Currently working</span>
+              <span className="font-semibold">{profile.availability}</span>
             </p>
-            <p className="text-primary font-medium mt-2" data-testid="text-contact-response-time">
-              I reply within 24 hours.
-            </p>
+            {profile.responsePromise && (
+              <p className="text-primary font-medium mt-2" data-testid="text-contact-response-time">
+                {profile.responsePromise}
+              </p>
+            )}
           </div>
 
           <div className="grid gap-8 md:grid-cols-3">

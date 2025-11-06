@@ -4,6 +4,9 @@ import {
   skills,
   projects,
   aboutContent,
+  experience,
+  education,
+  siteSettings,
   type AdminUser,
   type InsertAdminUser,
   type Profile,
@@ -14,6 +17,12 @@ import {
   type InsertProject,
   type AboutContent,
   type InsertAboutContent,
+  type Experience,
+  type InsertExperience,
+  type Education,
+  type InsertEducation,
+  type SiteSettings,
+  type InsertSiteSettings,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -44,6 +53,22 @@ export interface IStorage {
   // About content
   getAboutContent(): Promise<AboutContent | undefined>;
   upsertAboutContent(content: InsertAboutContent): Promise<AboutContent>;
+
+  // Experience
+  getExperiences(): Promise<Experience[]>;
+  createExperience(experience: InsertExperience): Promise<Experience>;
+  updateExperience(id: string, experience: Partial<InsertExperience>): Promise<Experience>;
+  deleteExperience(id: string): Promise<void>;
+
+  // Education
+  getEducation(): Promise<Education[]>;
+  createEducation(education: InsertEducation): Promise<Education>;
+  updateEducation(id: string, education: Partial<InsertEducation>): Promise<Education>;
+  deleteEducation(id: string): Promise<void>;
+
+  // Site Settings
+  getSiteSettings(): Promise<SiteSettings | undefined>;
+  upsertSiteSettings(settings: InsertSiteSettings): Promise<SiteSettings>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -155,6 +180,74 @@ export class DatabaseStorage implements IStorage {
       return updated;
     } else {
       const [created] = await db.insert(aboutContent).values(contentData).returning();
+      return created;
+    }
+  }
+
+  // Experience
+  async getExperiences(): Promise<Experience[]> {
+    return await db.select().from(experience).where(eq(experience.isActive, true)).orderBy(experience.displayOrder);
+  }
+
+  async createExperience(experienceData: InsertExperience): Promise<Experience> {
+    const [exp] = await db.insert(experience).values(experienceData).returning();
+    return exp;
+  }
+
+  async updateExperience(id: string, experienceData: Partial<InsertExperience>): Promise<Experience> {
+    const [exp] = await db
+      .update(experience)
+      .set(experienceData)
+      .where(eq(experience.id, id))
+      .returning();
+    return exp;
+  }
+
+  async deleteExperience(id: string): Promise<void> {
+    await db.delete(experience).where(eq(experience.id, id));
+  }
+
+  // Education
+  async getEducation(): Promise<Education[]> {
+    return await db.select().from(education).where(eq(education.isActive, true)).orderBy(education.displayOrder);
+  }
+
+  async createEducation(educationData: InsertEducation): Promise<Education> {
+    const [edu] = await db.insert(education).values(educationData).returning();
+    return edu;
+  }
+
+  async updateEducation(id: string, educationData: Partial<InsertEducation>): Promise<Education> {
+    const [edu] = await db
+      .update(education)
+      .set(educationData)
+      .where(eq(education.id, id))
+      .returning();
+    return edu;
+  }
+
+  async deleteEducation(id: string): Promise<void> {
+    await db.delete(education).where(eq(education.id, id));
+  }
+
+  // Site Settings
+  async getSiteSettings(): Promise<SiteSettings | undefined> {
+    const [settings] = await db.select().from(siteSettings).orderBy(desc(siteSettings.updatedAt)).limit(1);
+    return settings;
+  }
+
+  async upsertSiteSettings(settingsData: InsertSiteSettings): Promise<SiteSettings> {
+    const existing = await this.getSiteSettings();
+    
+    if (existing) {
+      const [updated] = await db
+        .update(siteSettings)
+        .set({ ...settingsData, updatedAt: new Date() })
+        .where(eq(siteSettings.id, existing.id))
+        .returning();
+      return updated;
+    } else {
+      const [created] = await db.insert(siteSettings).values(settingsData).returning();
       return created;
     }
   }

@@ -1,14 +1,27 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Download, Mail, Clock, Laptop, Briefcase } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import type { SiteSettings, Profile, Skill } from "@shared/schema";
 
 export function HeroSection() {
-  const skills = ["Taiga", "Postman", "APIDOG", "JIRA", "JMeter"];
-  const quickFacts = [
-    { icon: Clock, text: "1 year experience" },
-    { icon: Laptop, text: "Hybrid" },
+  const { data: settings } = useQuery<SiteSettings>({
+    queryKey: ["/api/public/settings"],
+  });
+
+  const { data: profile } = useQuery<Profile>({
+    queryKey: ["/api/public/profile"],
+  });
+
+  const { data: skills = [] } = useQuery<Skill[]>({
+    queryKey: ["/api/public/skills"],
+  });
+
+  const quickFacts = profile ? [
+    { icon: Clock, text: `${profile.experienceYears} year${profile.experienceYears > 1 ? 's' : ''} experience` },
+    { icon: Laptop, text: profile.availability },
     { icon: Briefcase, text: "Currently working" },
-  ];
+  ] : [];
 
   const handleScrollToProjects = () => {
     const element = document.getElementById("projects");
@@ -17,18 +30,34 @@ export function HeroSection() {
     }
   };
 
+  if (!profile) {
+    return (
+      <section id="home" className="hero-gradient py-20 sm:py-32 lg:py-40">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center animate-pulse">
+            <div className="h-16 bg-muted rounded mb-6"></div>
+            <div className="h-8 bg-muted rounded mb-8"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const heroTitle = settings?.heroTitle || `${profile.title} | Portfolio & Resume`;
+  const heroSubtitle = settings?.heroSubtitle || `${profile.name} - ${profile.location}`;
+
   return (
     <section id="home" className="hero-gradient py-20 sm:py-32 lg:py-40">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center animate-fade-in">
           {/* Main Heading */}
           <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-foreground mb-6" data-testid="text-hero-title">
-            QA Lead <span className="text-primary">@ankaEK</span> | Manual & Automation Testing Enthusiast | Detail-Oriented | Problem Solver
+            {heroTitle}
           </h1>
 
           {/* Subheadline */}
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed" data-testid="text-hero-subtitle">
-            QA Lead ensuring reliable releases with rigorous manual testing and practical automation—focused on quality, speed, and UX.
+            {heroSubtitle}
           </p>
 
           {/* Quick Facts */}
@@ -43,27 +72,33 @@ export function HeroSection() {
 
           {/* Tool Chips */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {skills.map((skill) => (
-              <Badge key={skill} variant="outline" className="border-primary text-primary" data-testid={`badge-skill-${skill.toLowerCase()}`}>
-                {skill}
+            {skills.slice(0, 5).map((skill) => (
+              <Badge key={skill.id} variant="outline" className="border-primary text-primary" data-testid={`badge-skill-${skill.name.toLowerCase()}`}>
+                {skill.name}
               </Badge>
             ))}
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" data-testid="button-book-interview-hero">
-              <a href="https://calendly.com/bishnu23neupane" target="_blank" rel="noopener noreferrer">
-                <Calendar className="mr-2 h-5 w-5" />
-                Book Interview
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" onClick={handleScrollToProjects} data-testid="button-download-resume-hero">
-              <Download className="mr-2 h-5 w-5" />
-              Download Résumé
-            </Button>
+            {settings?.calendlyUrl && (
+              <Button asChild size="lg" data-testid="button-book-interview-hero">
+                <a href={settings.calendlyUrl} target="_blank" rel="noopener noreferrer">
+                  <Calendar className="mr-2 h-5 w-5" />
+                  Book Interview
+                </a>
+              </Button>
+            )}
+            {settings?.resumeUrl && (
+              <Button variant="outline" size="lg" asChild data-testid="button-download-resume-hero">
+                <a href={settings.resumeUrl} target="_blank" rel="noopener noreferrer">
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Résumé
+                </a>
+              </Button>
+            )}
             <Button variant="outline" size="lg" asChild data-testid="button-email-hero">
-              <a href="mailto:bishnu23neupane@gmail.com">
+              <a href={`mailto:${profile.email}`}>
                 <Mail className="mr-2 h-5 w-5" />
                 Email Me
               </a>

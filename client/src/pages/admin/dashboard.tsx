@@ -12,7 +12,10 @@ import {
   FileText,
   Plus,
   Pencil,
-  Trash2
+  Trash2,
+  Briefcase,
+  GraduationCap,
+  Sliders
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -22,6 +25,9 @@ import { ProfileForm } from "@/components/admin/profile-form";
 import { SkillForm } from "@/components/admin/skill-form";
 import { ProjectForm } from "@/components/admin/project-form";
 import { AboutForm } from "@/components/admin/about-form";
+import { ExperienceForm } from "@/components/admin/experience-form";
+import { EducationForm } from "@/components/admin/education-form";
+import { SettingsForm } from "@/components/admin/settings-form";
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
@@ -101,7 +107,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
             <TabsTrigger value="profile" className="flex items-center space-x-2" data-testid="tab-profile">
               <User className="h-4 w-4" />
               <span>Profile</span>
@@ -117,6 +123,18 @@ export default function AdminDashboard() {
             <TabsTrigger value="about" className="flex items-center space-x-2" data-testid="tab-about">
               <FileText className="h-4 w-4" />
               <span>About</span>
+            </TabsTrigger>
+            <TabsTrigger value="experience" className="flex items-center space-x-2" data-testid="tab-experience">
+              <Briefcase className="h-4 w-4" />
+              <span>Experience</span>
+            </TabsTrigger>
+            <TabsTrigger value="education" className="flex items-center space-x-2" data-testid="tab-education">
+              <GraduationCap className="h-4 w-4" />
+              <span>Education</span>
+            </TabsTrigger>
+            <TabsTrigger value="settings" className="flex items-center space-x-2" data-testid="tab-settings">
+              <Sliders className="h-4 w-4" />
+              <span>Settings</span>
             </TabsTrigger>
           </TabsList>
 
@@ -172,6 +190,42 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <AboutForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Experience Management */}
+          <TabsContent value="experience" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Work Experience</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ExperienceForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Education Management */}
+          <TabsContent value="education" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Education</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <EducationForm />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Site Settings Management */}
+          <TabsContent value="settings" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Site Settings</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <SettingsForm />
               </CardContent>
             </Card>
           </TabsContent>
