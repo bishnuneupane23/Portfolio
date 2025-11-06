@@ -11,6 +11,7 @@ import {
   insertExperienceSchema,
   insertEducationSchema,
   insertSiteSettingsSchema,
+  insertResumeAttachmentSchema,
 } from "@shared/schema";
 
 // Simple session middleware for admin auth
@@ -346,6 +347,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Resume Attachments Management
+  app.get("/api/admin/resume-attachments", requireAdmin, async (req, res) => {
+    try {
+      const attachments = await storage.getResumeAttachments();
+      res.json(attachments);
+    } catch (error) {
+      console.error("Get resume attachments error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/admin/resume-attachments/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const attachment = await storage.getResumeAttachment(id);
+      if (!attachment) {
+        return res.status(404).json({ message: "Resume attachment not found" });
+      }
+      res.json(attachment);
+    } catch (error) {
+      console.error("Get resume attachment error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post("/api/admin/resume-attachments", requireAdmin, async (req, res) => {
+    try {
+      const validated = insertResumeAttachmentSchema.parse(req.body);
+      const attachment = await storage.createResumeAttachment(validated);
+      res.json(attachment);
+    } catch (error) {
+      console.error("Create resume attachment error:", error);
+      res.status(400).json({ message: "Invalid resume attachment data" });
+    }
+  });
+
+  app.put("/api/admin/resume-attachments/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const validated = insertResumeAttachmentSchema.partial().parse(req.body);
+      const attachment = await storage.updateResumeAttachment(id, validated);
+      res.json(attachment);
+    } catch (error) {
+      console.error("Update resume attachment error:", error);
+      res.status(400).json({ message: "Invalid resume attachment data" });
+    }
+  });
+
+  app.delete("/api/admin/resume-attachments/:id", requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      await storage.deleteResumeAttachment(id);
+      res.json({ message: "Resume attachment deleted" });
+    } catch (error) {
+      console.error("Delete resume attachment error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   // Public API routes (no auth required)
   app.get("/api/public/profile", async (req, res) => {
     try {
@@ -413,6 +473,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(settings);
     } catch (error) {
       console.error("Get settings error:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/public/resume-attachments", async (req, res) => {
+    try {
+      const attachments = await storage.getResumeAttachments();
+      res.json(attachments);
+    } catch (error) {
+      console.error("Get resume attachments error:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   });

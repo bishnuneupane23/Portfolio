@@ -7,6 +7,7 @@ import {
   experience,
   education,
   siteSettings,
+  resumeAttachments,
   type AdminUser,
   type InsertAdminUser,
   type Profile,
@@ -23,6 +24,8 @@ import {
   type InsertEducation,
   type SiteSettings,
   type InsertSiteSettings,
+  type ResumeAttachment,
+  type InsertResumeAttachment,
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, desc } from "drizzle-orm";
@@ -69,6 +72,13 @@ export interface IStorage {
   // Site Settings
   getSiteSettings(): Promise<SiteSettings | undefined>;
   upsertSiteSettings(settings: InsertSiteSettings): Promise<SiteSettings>;
+
+  // Resume Attachments
+  getResumeAttachments(): Promise<ResumeAttachment[]>;
+  getResumeAttachment(id: string): Promise<ResumeAttachment | undefined>;
+  createResumeAttachment(attachment: InsertResumeAttachment): Promise<ResumeAttachment>;
+  updateResumeAttachment(id: string, attachment: Partial<InsertResumeAttachment>): Promise<ResumeAttachment>;
+  deleteResumeAttachment(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -250,6 +260,34 @@ export class DatabaseStorage implements IStorage {
       const [created] = await db.insert(siteSettings).values(settingsData).returning();
       return created;
     }
+  }
+
+  // Resume Attachments
+  async getResumeAttachments(): Promise<ResumeAttachment[]> {
+    return await db.select().from(resumeAttachments).where(eq(resumeAttachments.isActive, true)).orderBy(desc(resumeAttachments.uploadedAt));
+  }
+
+  async getResumeAttachment(id: string): Promise<ResumeAttachment | undefined> {
+    const [attachment] = await db.select().from(resumeAttachments).where(eq(resumeAttachments.id, id));
+    return attachment;
+  }
+
+  async createResumeAttachment(attachmentData: InsertResumeAttachment): Promise<ResumeAttachment> {
+    const [attachment] = await db.insert(resumeAttachments).values(attachmentData as any).returning();
+    return attachment;
+  }
+
+  async updateResumeAttachment(id: string, attachmentData: Partial<InsertResumeAttachment>): Promise<ResumeAttachment> {
+    const [attachment] = await db
+      .update(resumeAttachments)
+      .set(attachmentData as any)
+      .where(eq(resumeAttachments.id, id))
+      .returning();
+    return attachment;
+  }
+
+  async deleteResumeAttachment(id: string): Promise<void> {
+    await db.delete(resumeAttachments).where(eq(resumeAttachments.id, id));
   }
 }
 

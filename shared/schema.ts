@@ -112,6 +112,18 @@ export const siteSettings = pgTable("site_settings", {
   updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+// Resume Attachments (admin-editable)
+export const resumeAttachments = pgTable("resume_attachments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  fileName: text("file_name").notNull(),
+  fileUrl: text("file_url").notNull(),
+  fileSize: integer("file_size"),
+  fileType: text("file_type"),
+  isActive: boolean("is_active").default(true),
+  uploadedAt: timestamp("uploaded_at").defaultNow(),
+  description: text("description"),
+});
+
 // Insert schemas
 export const insertAdminUserSchema = createInsertSchema(adminUsers).pick({
   username: true,
@@ -153,6 +165,11 @@ export const insertSiteSettingsSchema = createInsertSchema(siteSettings).omit({
   updatedAt: true,
 });
 
+export const insertResumeAttachmentSchema = createInsertSchema(resumeAttachments).omit({
+  id: true,
+  uploadedAt: true,
+});
+
 // Types
 export type InsertAdminUser = z.infer<typeof insertAdminUserSchema>;
 export type AdminUser = typeof adminUsers.$inferSelect;
@@ -177,3 +194,6 @@ export type Education = typeof education.$inferSelect;
 
 export type InsertSiteSettings = z.infer<typeof insertSiteSettingsSchema>;
 export type SiteSettings = typeof siteSettings.$inferSelect;
+
+export type InsertResumeAttachment = z.infer<typeof insertResumeAttachmentSchema>;
+export type ResumeAttachment = typeof resumeAttachments.$inferSelect;
